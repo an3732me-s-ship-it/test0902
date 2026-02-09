@@ -8,7 +8,10 @@
   <body>
     <a-scene 
       mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;" 
-      vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false">
       
       <a-assets>
         <a-asset-item id="stairModel" src="./stair.glb"></a-asset-item>
@@ -20,9 +23,11 @@
         <a-gltf-model 
           src="#stairModel" 
           position="0 -0.0072 0" 
+          rotation="-90 0 0"
           scale="16.66 16.66 16.66">
         </a-gltf-model>
       </a-entity>
+      
     </a-scene>
   </body>
 </html>
