@@ -4,6 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    
+    <script>
+      // This script forces the pink color and transparency onto the glTF meshes
+      AFRAME.registerComponent('force-material', {
+        init: function () {
+          this.el.addEventListener('model-loaded', () => {
+            const mesh = this.el.getObject3D('mesh');
+            mesh.traverse((node) => {
+              if (node.isMesh) {
+                node.material.color.set('#FF69B4'); // Hot Pink
+                node.material.opacity = 0.5;        // 50% Transparency
+                node.material.transparent = true;   // Enable Alpha Channel
+                node.material.needsUpdate = true;
+              }
+            });
+          });
+        }
+      });
+    </script>
   </head>
   <body>
     <a-scene 
@@ -21,14 +40,12 @@
 
       <a-entity mindar-image-target="targetIndex: 0">
         <a-entity position="0 0 -1.8">
-          
           <a-gltf-model 
             src="#stairModel" 
             rotation="90 0 0"
             scale="6.66 6.66 6.66"
-            material="color: #FF69B4; opacity: 0.5; transparent: true">
+            force-material>
           </a-gltf-model>
-          
         </a-entity>
       </a-entity>
       
